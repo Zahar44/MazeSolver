@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 359437197}
   - component: {fileID: 359437196}
+  - component: {fileID: 359437198}
   m_Layer: 0
   m_Name: MazeGenerator
   m_TagString: Untagged
@@ -152,10 +153,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 389fe1ceb26b33c488536ebba44f1319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 19
+  size: 11
   wallPrefab: {fileID: 8724397944357382823, guid: 19bdf46ba67fd8b4286e5cfe0559d002,
     type: 3}
-  displacementSpeed: {x: 1, y: 2}
+  minDisplacementSpeed: 0.63
+  maxDisplacementSpeed: 2.01
 --- !u!4 &359437197
 Transform:
   m_ObjectHideFlags: 0
@@ -171,8 +173,111 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &359437198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359437195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09085c34a4b6a684481fd13cdc1e1440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 7985442913260971053, guid: a99614fcbfa902540b4c5ba9982eec67, type: 3}
+  startColor: {r: 0.12149644, g: 1, b: 0, a: 1}
+  endColor: {r: 1, g: 0, b: 0, a: 1}
+  initialIntensity: 1000
+  finalIntensity: 50
+  duration: 1
+--- !u!1 &2027518790
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2027518792}
+  - component: {fileID: 2027518793}
+  - component: {fileID: 2027518794}
+  - component: {fileID: 2027518795}
+  m_Layer: 0
+  m_Name: MazeSolver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2027518792
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027518790}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2027518793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027518790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a308ff4aee7b4a4eb99cf1433674b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  lossyDistance: 0.1
+--- !u!114 &2027518794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027518790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d07f753c2f97e324c93dd8ea395fa7f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  learningRate: 0.1
+  discountFactor: 0.95
+  wallReward: -1
+  roadReward: 0
+  winReward: 10
+--- !u!114 &2027518795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027518790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02f7b0e8c7c34da40bdb62ff7878afa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 10
+  explorationPrefab: {fileID: 2948667691604223914, guid: 0a4eb58b36d36bb4a8aa44100a09c864,
+    type: 3}
+  exploitPrefab: {fileID: 2948667691604223914, guid: 8f012cb9ffd72ff47842f02a04700660,
+    type: 3}
+  actorsPerEpisode: 10
+  explorationProbability: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 359437197}
+  - {fileID: 2027518792}

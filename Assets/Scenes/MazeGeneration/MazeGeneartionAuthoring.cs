@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class MazeGenerationAuthoring : MonoBehaviour
 {
-    [Range(10, 100)]
+    [Range(5, 100)]
     public int size = 10;
     public GameObject wallPrefab;
-    public Vector2 displacementSpeed;
+    [Range(0, 10)]
+    public float minDisplacementSpeed;
+    [Range(0, 10)]
+    public float maxDisplacementSpeed;
 }
 
 public class MazeGenerationBaker : Baker<MazeGenerationAuthoring>
@@ -20,13 +23,14 @@ public class MazeGenerationBaker : Baker<MazeGenerationAuthoring>
         {
             size = authoring.size,
             wallPrefab = GetEntity(authoring.wallPrefab, TransformUsageFlags.Renderable),
-            displacementSpeed = authoring.displacementSpeed,
+            displacementSpeed = new MinMaxValue
+            {
+                min = authoring.minDisplacementSpeed,
+                max = authoring.maxDisplacementSpeed,
+            },
         });
 
         var regenerateTag = CreateAdditionalEntity(TransformUsageFlags.None);
-        AddComponent<RegenerateMaze>(regenerateTag);
-
-        Camera.main.transform.position = new Vector3(authoring.size, 10f, authoring.size);
-        Camera.main.transform.LookAt(new Vector3());
+        AddComponent<GenerateMazeTag>(regenerateTag);
     }
 }

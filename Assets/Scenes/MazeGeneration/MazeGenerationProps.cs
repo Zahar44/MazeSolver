@@ -1,9 +1,14 @@
 using Unity.Entities;
-using Unity.Mathematics;
+
+public struct MinMaxValue : IComponentData
+{
+    public float min;
+    public float max;
+}
 
 public struct MazeGenerationProps : IComponentData
 {
     public int size;
     public Entity wallPrefab;
-    public float2 displacementSpeed;
+    public MinMaxValue displacementSpeed;
 }
